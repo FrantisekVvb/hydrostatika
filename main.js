@@ -125,6 +125,28 @@ function applyOpeningMask() {
   );
 }
 
+function setSvgGroupVisible(group, visible) {
+  group.setAttribute("display", visible ? "inline" : "none");
+}
+
+function applyVariantVisibility() {
+  svg.querySelectorAll(".tube-wide").forEach((group) => {
+    setSvgGroupVisible(group, !narrowTube);
+  });
+  svg.querySelectorAll(".tube-narrow").forEach((group) => {
+    setSvgGroupVisible(group, narrowTube);
+  });
+  svg.querySelectorAll(".disk-wide").forEach((group) => {
+    setSvgGroupVisible(group, diskSize === "wide");
+  });
+  svg.querySelectorAll(".disk-narrow").forEach((group) => {
+    setSvgGroupVisible(group, diskSize === "narrow");
+  });
+  svg.querySelectorAll(".disk-giant").forEach((group) => {
+    setSvgGroupVisible(group, diskSize === "giant");
+  });
+}
+
 function svgY(event) {
   const ctm = svg.getScreenCTM();
   if (!ctm) return event.clientY;
@@ -579,6 +601,7 @@ function applySetup() {
     btn.setAttribute("aria-pressed", String(active));
   });
   updateLiquidReadout();
+  applyVariantVisibility();
   applyHitRect();
   applyOpeningMask();
   resetScene();
