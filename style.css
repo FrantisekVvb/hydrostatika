@@ -379,11 +379,21 @@ button {
   fill: #5b9af0;
 }
 
+.js-depth-marker path,
+.js-depth-readout {
+  fill: #ef3a50;
+  transition: fill 180ms ease;
+}
+
 .js-depth-readout {
   font-family: "Fenomen Sans", Arial, Helvetica, sans-serif;
   font-size: 44px;
   font-weight: 400;
-  fill: #ef3a50;
+}
+
+.js-depth-marker.is-frozen path,
+.js-depth-marker.is-frozen .js-depth-readout {
+  fill: #9aa3b5;
 }
 
 @media (max-width: 760px) {

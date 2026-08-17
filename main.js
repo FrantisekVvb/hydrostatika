@@ -166,6 +166,7 @@ function updateDepthReadout() {
 
 function updateDepthMarker() {
   if (depthMarker) {
+    depthMarker.classList.toggle("is-frozen", !attached);
     depthMarker.setAttribute(
       "transform",
       `translate(0 ${Math.max(WATER_OFFSET, displayedDepthOffset())})`
@@ -430,6 +431,7 @@ function onPointerMove(event) {
     attached = true;
     stopFall();
     packBalls();
+    updateDepthMarker();
   }
 
   if (!attached) return;
