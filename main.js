@@ -2,6 +2,7 @@ const svg = document.querySelector(".scene__svg");
 const tubeGroups = document.querySelectorAll(".js-tube");
 const diskGroups = document.querySelectorAll(".js-disk");
 const hit = document.querySelector(".tube-hit");
+const openingGroup = document.querySelector(".js-opening");
 const depthReadout = document.querySelector(".js-depth-readout");
 const depthMarker = document.querySelector(".js-depth-marker");
 
@@ -19,7 +20,11 @@ const MAX_BALLS = 5;
 const BALL_WEIGHT_N = 1;
 const TUBE_AREA_WIDE = 0.01;
 const TUBE_AREA_NARROW = 0.0049;
-const WATER_DENSITY = 1000;
+const LIQUIDS = {
+  water: 1000,
+  gasoline: 700,
+  glycerol: 1300,
+};
 const GRAVITY_N_PER_KG = 10;
 const MAX_DEPTH_M = 0.05;
 const BALL_POSITIONS_WIDE = [
@@ -73,6 +78,11 @@ let packing = false;
 let frozenDepthOffset = 0;
 let narrowTube = false;
 let diskSize = "wide";
+let liquid = "water";
+
+function liquidDensity() {
+  return LIQUIDS[liquid];
+}
 
 function ballPositions() {
   if (!narrowTube) return BALL_POSITIONS_WIDE;
@@ -106,6 +116,13 @@ function applyHitRect() {
   hit.setAttribute("y", String(box.y));
   hit.setAttribute("width", String(box.width));
   hit.setAttribute("height", String(box.height));
+}
+
+function applyOpeningMask() {
+  openingGroup.setAttribute(
+    "mask",
+    narrowTube ? "url(#mask-opening-narrow)" : "url(#mask1_2698_133)"
+  );
 }
 
 function svgY(event) {
@@ -172,7 +189,7 @@ function diskDepthM() {
 }
 
 function hydrostaticForceN() {
-  return WATER_DENSITY * GRAVITY_N_PER_KG * diskDepthM() * tubeAreaM2();
+  return liquidDensity() * GRAVITY_N_PER_KG * diskDepthM() * tubeAreaM2();
 }
 
 function totalWeightN() {
@@ -464,8 +481,12 @@ function renderBalls() {
 
 function updateBallButtons() {
   const locked = ballScattered;
-  addBallBtn.classList.toggle("is-disabled", locked || ballCount >= MAX_BALLS);
-  removeBallBtn.classList.toggle("is-disabled", locked || ballCount <= 0);
+  const addDisabled = locked || ballCount >= MAX_BALLS;
+  const removeDisabled = locked || ballCount <= 0;
+  addBallBtn.classList.toggle("is-disabled", addDisabled);
+  addBallBtn.disabled = addDisabled;
+  removeBallBtn.classList.toggle("is-disabled", removeDisabled);
+  removeBallBtn.disabled = removeDisabled;
 }
 
 function addBall() {
@@ -504,15 +525,13 @@ function resetScene() {
   renderBalls();
 }
 
-addBallBtn.addEventListener("pointerdown", (event) => {
+addBallBtn.addEventListener("click", (event) => {
   event.preventDefault();
-  event.stopPropagation();
   addBall();
 });
 
-removeBallBtn.addEventListener("pointerdown", (event) => {
+removeBallBtn.addEventListener("click", (event) => {
   event.preventDefault();
-  event.stopPropagation();
   removeBall();
 });
 
@@ -524,7 +543,7 @@ document.getElementById("resetBtn").addEventListener("click", (event) => {
 function setNarrowTube(next) {
   if (narrowTube === next) return;
   narrowTube = next;
-  if (!narrowTube && diskSize === "narrow") diskSize = "wide";
+  diskSize = next ? "narrow" : "wide";
   applySetup();
 }
 
@@ -540,15 +559,45 @@ function applySetup() {
   svg.classList.toggle("is-narrow", narrowTube);
   svg.classList.toggle("is-small-disk", diskSize === "narrow");
   svg.classList.toggle("is-giant-disk", diskSize === "giant");
+  svg.dataset.liquid = liquid;
   document.querySelectorAll("[data-tube]").forEach((btn) => {
-    btn.classList.toggle("is-active", btn.dataset.tube === (narrowTube ? "narrow" : "wide"));
+    const active = btn.dataset.tube === (narrowTube ? "narrow" : "wide");
+    btn.classList.toggle("is-active", active);
+    btn.setAttribute("aria-pressed", String(active));
   });
   document.querySelectorAll("[data-disk]").forEach((btn) => {
-    btn.classList.toggle("is-active", btn.dataset.disk === diskSize);
+    const active = btn.dataset.disk === diskSize;
+    btn.classList.toggle("is-active", active);
+    btn.setAttribute("aria-pressed", String(active));
     if (btn.dataset.disk === "narrow") btn.disabled = !narrowTube;
   });
+  document.querySelectorAll("button[data-liquid]").forEach((btn) => {
+    const active = btn.dataset.liquid === liquid;
+    btn.classList.toggle("is-active", active);
+    btn.setAttribute("aria-pressed", String(active));
+  });
+  updateLiquidReadout();
   applyHitRect();
+  applyOpeningMask();
   resetScene();
+}
+
+function updateLiquidReadout() {
+  const value = document.getElementById("liquidDensityValue");
+  if (value) value.textContent = String(LIQUIDS[liquid]);
+}
+
+function setLiquid(next) {
+  if (liquid === next) return;
+  liquid = next;
+  svg.dataset.liquid = liquid;
+  document.querySelectorAll("button[data-liquid]").forEach((btn) => {
+    const active = btn.dataset.liquid === liquid;
+    btn.classList.toggle("is-active", active);
+    btn.setAttribute("aria-pressed", String(active));
+  });
+  updateLiquidReadout();
+  if (attached && diskOffset > WATER_OFFSET) startFall();
 }
 
 document.querySelectorAll("[data-tube]").forEach((btn) => {
@@ -562,6 +611,13 @@ document.querySelectorAll("[data-disk]").forEach((btn) => {
   btn.addEventListener("click", (event) => {
     event.preventDefault();
     setDiskSize(btn.dataset.disk);
+  });
+});
+
+document.querySelectorAll("button[data-liquid]").forEach((btn) => {
+  btn.addEventListener("click", (event) => {
+    event.preventDefault();
+    setLiquid(btn.dataset.liquid);
   });
 });
 

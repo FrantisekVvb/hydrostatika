@@ -8,8 +8,73 @@
 </head>
 <body>
   <main class="scene" aria-label="Hydrostatika">
-    <div class="scene__wrap">
-    <svg class="scene__svg" width="2368" height="2120" viewBox="-260 0 2368 2120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <aside class="setup-panel">
+      <div class="panel-copy">
+        <a href="../index.html" class="hub-back-to-sims">← Přehled simulací</a>
+        <h1 class="panel-title">Hydrostatika</h1>
+      </div>
+
+      <section class="panel-section">
+        <span class="panel-label">Kapalina</span>
+        <div class="mode-switch mode-switch--3" role="group" aria-label="Kapalina">
+          <button class="mode-switch__btn is-active" type="button" data-liquid="water" aria-pressed="true">Voda</button>
+          <button class="mode-switch__btn" type="button" data-liquid="gasoline" aria-pressed="false">Benzín</button>
+          <button class="mode-switch__btn" type="button" data-liquid="glycerol" aria-pressed="false">Glycerol</button>
+        </div>
+        <p class="panel-readout" id="liquidDensity" aria-live="polite">
+          Hustota: <span id="liquidDensityValue">1000</span> kg na m<sup>3</sup>
+        </p>
+      </section>
+
+      <section class="panel-section">
+        <span class="panel-label">Válec</span>
+        <div class="mode-switch" role="group" aria-label="Průměr válce">
+          <button class="mode-switch__btn is-active" type="button" data-tube="wide" aria-pressed="true">Široký</button>
+          <button class="mode-switch__btn" type="button" data-tube="narrow" aria-pressed="false">Úzký</button>
+        </div>
+      </section>
+
+      <section class="panel-section">
+        <span class="panel-label">Kolečko</span>
+        <div class="mode-switch mode-switch--3" role="group" aria-label="Velikost kolečka">
+          <button class="mode-switch__btn" type="button" data-disk="narrow" aria-pressed="false">Malé</button>
+          <button class="mode-switch__btn is-active" type="button" data-disk="wide" aria-pressed="true">Střední</button>
+          <button class="mode-switch__btn" type="button" data-disk="giant" aria-pressed="false">Velké</button>
+        </div>
+      </section>
+
+      <section class="panel-section panel-section--balls">
+        <span class="panel-label">Kuličky</span>
+        <div class="ball-tray" aria-label="Zásobník kuliček">
+          <button class="ball-btn ball-btn--add" type="button" aria-label="Přidat kuličku do válce">
+            <svg viewBox="0 0 80 80" aria-hidden="true">
+              <path d="M40 12 L40 68" stroke="#2F9E44" stroke-width="16" stroke-linecap="round"/>
+              <path d="M12 40 L68 40" stroke="#2F9E44" stroke-width="16" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <svg class="ball-tray__preview" width="149" height="149" viewBox="0 0 149 149" fill="none" aria-hidden="true">
+            <path d="M144.609 74.0653C144.609 113.025 113.027 144.607 74.0688 144.607C35.1094 144.607 3.52734 113.025 3.52734 74.0653C3.52734 35.1076 35.1094 3.52734 74.0688 3.52734C113.027 3.52734 144.609 35.1076 144.609 74.0653Z" fill="#727272"/>
+            <path d="M144.609 74.0653C144.609 113.025 113.027 144.607 74.0688 144.607C35.1094 144.607 3.52734 113.025 3.52734 74.0653C3.52734 35.1076 35.1094 3.52734 74.0688 3.52734C113.027 3.52734 144.609 35.1076 144.609 74.0653Z" fill="#727272" stroke="black" stroke-width="7.05468" stroke-miterlimit="10" stroke-linecap="round"/>
+            <path d="M19.293 64.0651C19.293 33.8147 43.8168 9.28906 74.0708 9.28906Z" fill="#727272"/>
+            <path d="M19.293 74.0651C19.293 43.8147 43.8168 19.2891 74.0708 19.2891Z" fill="#727272"/>
+            <path d="M19.293 74.0651C19.293 43.8147 43.8168 19.2891 74.0708 19.2891" stroke="white" stroke-width="7.05468" stroke-miterlimit="10" stroke-linecap="round"/>
+          </svg>
+          <button class="ball-btn ball-btn--remove" type="button" aria-label="Odebrat kuličku z válce" disabled>
+            <svg viewBox="0 0 80 80" aria-hidden="true">
+              <path d="M12 40 L68 40" stroke="#E03131" stroke-width="16" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <div class="panel-actions">
+        <button class="panel-action-btn" id="resetBtn" type="button">Reset</button>
+      </div>
+    </aside>
+
+    <div class="scene-workspace" aria-label="Pracovní plocha">
+      <div class="scene__wrap">
+    <svg class="scene__svg" width="2108" height="2120" viewBox="0 0 2108 2120" preserveAspectRatio="xMidYMid meet" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <defs>
         <g id="tube-red">
           <g class="disk-wide">
@@ -74,7 +139,7 @@
         <g id="tank-outline">
           <path d="M1719.67 1900.6L663.05 2102.85C627.646 2110.31 594.352 2083.3 594.352 2047.12V1099.11L1782.4 869.172V1823.27C1782.4 1860.64 1756.23 1892.9 1719.67 1900.6Z" stroke="#0D0C0D" stroke-width="21.2381" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M505.018 2073.91C536.882 2089.4 574.569 2121.62 663.05 2102.85" stroke="#0D0C0D" stroke-width="21.2381" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M10.6191 766.39L594.355 1099.12V2026.07C594.355 2068.19 550.211 2095.74 512.376 2077.23L67.3991 1812.37C32.6536 1795.38 10.6191 1760.08 10.6191 1721.4V766.39ZM1775.5 871.5L1202.5 533L10.6191 766.39M1202.5 533V851.5" stroke="#0D0C0D" stroke-width="21.2381" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M10.6191 766.39L594.355 1099.12V2026.07C594.355 2068.19 550.211 2095.74 512.376 2077.23L67.3991 1812.37C32.6536 1795.38 10.6191 1760.08 10.6191 1721.4V766.39ZM1782.4 869.172L1202.5 533L10.6191 766.39M1202.5 533V851.5" stroke="#0D0C0D" stroke-width="21.2381" stroke-linecap="round" stroke-linejoin="round"/>
         </g>
         <g id="tank-outline-front">
           <path d="M1719.67 1900.6L663.05 2102.85C627.646 2110.31 594.352 2083.3 594.352 2047.12V1099.11L1782.4 869.172V1823.27C1782.4 1860.64 1756.23 1892.9 1719.67 1900.6Z" stroke="#0D0C0D" stroke-width="21.2381" stroke-linecap="round" stroke-linejoin="round"/>
@@ -84,28 +149,23 @@
         <g id="ball">
           <path d="M144.609 74.0653C144.609 113.025 113.027 144.607 74.0688 144.607C35.1094 144.607 3.52734 113.025 3.52734 74.0653C3.52734 35.1076 35.1094 3.52734 74.0688 3.52734C113.027 3.52734 144.609 35.1076 144.609 74.0653Z" fill="#727272"/>
           <path d="M144.609 74.0653C144.609 113.025 113.027 144.607 74.0688 144.607C35.1094 144.607 3.52734 113.025 3.52734 74.0653C3.52734 35.1076 35.1094 3.52734 74.0688 3.52734C113.027 3.52734 144.609 35.1076 144.609 74.0653Z" fill="#727272" stroke="black" stroke-width="7.05468" stroke-miterlimit="10" stroke-linecap="round"/>
+          <path d="M19.293 64.0651C19.293 33.8147 43.8168 9.28906 74.0708 9.28906Z" fill="#727272"/>
+          <path d="M19.293 74.0651C19.293 43.8147 43.8168 19.2891 74.0708 19.2891Z" fill="#727272"/>
           <path d="M19.293 74.0651C19.293 43.8147 43.8168 19.2891 74.0708 19.2891" stroke="white" stroke-width="7.05468" stroke-miterlimit="10" stroke-linecap="round"/>
         </g>
         <g id="ball-underwater">
-          <path d="M144.609 74.0653C144.609 113.025 113.027 144.607 74.0688 144.607C35.1094 144.607 3.52734 113.025 3.52734 74.0653C3.52734 35.1076 35.1094 3.52734 74.0688 3.52734C113.027 3.52734 144.609 35.1076 144.609 74.0653Z" fill="#206CE8" fill-opacity="0.45"/>
+          <path class="js-liquid-tint" d="M144.609 74.0653C144.609 113.025 113.027 144.607 74.0688 144.607C35.1094 144.607 3.52734 113.025 3.52734 74.0653C3.52734 35.1076 35.1094 3.52734 74.0688 3.52734C113.027 3.52734 144.609 35.1076 144.609 74.0653Z" fill="#206CE8" fill-opacity="0.45"/>
         </g>
         <mask id="mask-water" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="9" y="850" width="1775" height="1220">
           <path d="M10.623 1083.07V1721.39C10.623 1721.39 20.3076 1778.79 52.3099 1803.28C84.3121 1827.78 488.731 2063.15 488.731 2063.15C488.731 2063.15 548.523 2124.77 701.554 2095.48C854.589 2066.19 1734.5 1895.9 1734.5 1895.9L1776.84 1864.14L1782.41 1812.95V1185.86C1782.41 1185.86 1756.15 1176 1693.45 1138.2C1677.28 1128.45 1657.14 1117 1611.37 1086.6C1579.39 1065.36 1526.03 1034.89 1486.2 1011.61C1418.08 971.787 1347.86 936.019 1295.66 904.799C1246.19 875.207 1206.89 854.093 1206.89 854.093L10.623 1083.07Z" fill="white"/>
           <path d="M9.62109 1083.46L165.59 1168.58L368.446 1280.89L594.359 1405.18L819.376 1363.75L1142.9 1305.3L1496.16 1239.84L1783.4 1186.25L1620.49 1091.86L1395.34 961.706L1207.28 852.475L950.84 901.203L537.239 980.3L200.994 1046.55L9.62109 1083.46Z" fill="white"/>
         </mask>
-        <g id="icon-plus">
-          <path d="M40 12 L40 68" stroke="#2F9E44" stroke-width="16" stroke-linecap="round"/>
-          <path d="M12 40 L68 40" stroke="#2F9E44" stroke-width="16" stroke-linecap="round"/>
-        </g>
-        <g id="icon-minus">
-          <path d="M12 40 L68 40" stroke="#E03131" stroke-width="16" stroke-linecap="round"/>
-        </g>
       </defs>
 
       <line x1="10.9011" y1="756.509" x2="1198.9" y2="526.509" stroke="#FF0000"/>
 
-      <path d="M10.623 1083.07V1721.39C10.623 1721.39 20.3076 1778.79 52.3099 1803.28C84.3121 1827.78 488.731 2063.15 488.731 2063.15C488.731 2063.15 548.523 2124.77 701.554 2095.48C854.589 2066.19 1734.5 1895.9 1734.5 1895.9L1776.84 1864.14L1782.41 1812.95V1185.86C1782.41 1185.86 1756.15 1176 1693.45 1138.2C1677.28 1128.45 1657.14 1117 1611.37 1086.6C1579.39 1065.36 1526.03 1034.89 1486.2 1011.61C1418.08 971.787 1347.86 936.019 1295.66 904.799C1246.19 875.207 1206.89 854.093 1206.89 854.093L10.623 1083.07Z" fill="#58A1FF" fill-opacity="0.7"/>
-      <path d="M9.62109 1083.46L165.59 1168.58L368.446 1280.89L594.359 1405.18L819.376 1363.75L1142.9 1305.3L1496.16 1239.84L1783.4 1186.25L1620.49 1091.86L1395.34 961.706L1207.28 852.475L950.84 901.203L537.239 980.3L200.994 1046.55L9.62109 1083.46Z" fill="#206CE8" fill-opacity="0.8"/>
+      <path class="js-liquid-volume" d="M10.623 1083.07V1721.39C10.623 1721.39 20.3076 1778.79 52.3099 1803.28C84.3121 1827.78 488.731 2063.15 488.731 2063.15C488.731 2063.15 548.523 2124.77 701.554 2095.48C854.589 2066.19 1734.5 1895.9 1734.5 1895.9L1776.84 1864.14L1782.41 1812.95V1185.86C1782.41 1185.86 1756.15 1176 1693.45 1138.2C1677.28 1128.45 1657.14 1117 1611.37 1086.6C1579.39 1065.36 1526.03 1034.89 1486.2 1011.61C1418.08 971.787 1347.86 936.019 1295.66 904.799C1246.19 875.207 1206.89 854.093 1206.89 854.093L10.623 1083.07Z" fill="#58A1FF" fill-opacity="0.7"/>
+      <path class="js-liquid-surface" d="M9.62109 1083.46L165.59 1168.58L368.446 1280.89L594.359 1405.18L819.376 1363.75L1142.9 1305.3L1496.16 1239.84L1783.4 1186.25L1620.49 1091.86L1395.34 961.706L1207.28 852.475L950.84 901.203L537.239 980.3L200.994 1046.55L9.62109 1083.46Z" fill="#206CE8" fill-opacity="0.8"/>
 
       <g class="js-disk">
         <use href="#tube-red"/>
@@ -141,7 +201,10 @@
       <mask id="mask1_2698_133" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="288" y="0" width="1173" height="1247">
         <path d="M1460.14 0L288.143 66L312.143 1168L724.143 1184C724.143 1184 734.142 1247.94 914.143 1246C1100.14 1244 1114.14 1176 1114.14 1176L1408.14 1170L1460.14 0Z" fill="white"/>
       </mask>
-      <g mask="url(#mask1_2698_133)">
+      <mask id="mask-opening-narrow" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="288" y="0" width="1173" height="1226">
+        <path d="M1460.14 0L288.143 66L312.143 1168L804.14 1184C804.14 1184 818 1226 914.14 1226C1054 1226 1034.14 1176 1034.14 1176L1408.14 1170L1460.14 0Z" fill="white"/>
+      </mask>
+      <g class="js-opening" mask="url(#mask1_2698_133)">
         <g class="js-tube" opacity="0.5">
           <use href="#tube-fill"/>
         </g>
@@ -164,20 +227,9 @@
 
       <g class="js-depth-marker" aria-label="Hloubka ponoru červeného kolečka">
         <path d="M1820 1189L1925.75 1145.7V1232.3L1820 1189Z" fill="#EF3A50"/>
-        <text class="js-depth-readout" x="1962" y="1214" fill="#EF3A50">0 cm</text>
+        <text class="js-depth-readout" x="1962" y="1214" fill="#EF3A50" font-size="44">0 cm</text>
       </g>
 
-      <g class="ball-tray" aria-label="Zásobník kuliček">
-        <g class="ball-btn ball-btn--add" role="button" tabindex="0" aria-label="Přidat kuličku do roury">
-          <rect x="-228" y="780" width="149" height="100" fill="transparent"/>
-          <use href="#icon-plus" transform="translate(-193 790)"/>
-        </g>
-        <use href="#ball" transform="translate(-228 900)"/>
-        <g class="ball-btn ball-btn--remove" role="button" tabindex="0" aria-label="Odebrat kuličku z roury">
-          <rect x="-228" y="1060" width="149" height="100" fill="transparent"/>
-          <use href="#icon-minus" transform="translate(-193 1075)"/>
-        </g>
-      </g>
       <g class="js-tube">
         <rect
           class="tube-hit"
@@ -189,18 +241,7 @@
         />
       </g>
     </svg>
-    <div class="scene-actions">
-      <div class="tube-switch" role="group" aria-label="Průměr roury">
-        <button class="tube-switch__btn is-active" type="button" data-tube="wide">Široká</button>
-        <button class="tube-switch__btn" type="button" data-tube="narrow">Úzká</button>
       </div>
-      <div class="tube-switch" role="group" aria-label="Velikost kolečka">
-        <button class="tube-switch__btn" type="button" data-disk="giant">Obří kolečko</button>
-        <button class="tube-switch__btn is-active" type="button" data-disk="wide">Velké kolečko</button>
-        <button class="tube-switch__btn" type="button" data-disk="narrow">Malé kolečko</button>
-      </div>
-      <button class="reset-btn" id="resetBtn" type="button">Reset</button>
-    </div>
     </div>
   </main>
   <script src="main.js"></script>
