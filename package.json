@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "node server.js",
-    "dev": "npm start"
+    "dev": "node server.js",
+    "serve": "node server.js"
   },
   "engines": {
     "node": ">=18"

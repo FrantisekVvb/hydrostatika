@@ -4,6 +4,14 @@
   padding: 0;
 }
 
+@font-face {
+  font-family: "Fenomen Sans";
+  src: url("https://jjpiguuubvmiobmixwgh.supabase.co/storage/v1/object/public/Admin%20math/Fenomen%20Sans%20Book.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 html,
 body {
   width: 100%;
@@ -29,9 +37,10 @@ body {
 }
 
 .scene__wrap {
-  width: min(100vw, calc(100dvh * 1794 / 2120));
-  height: min(100dvh, calc(100vw * 2120 / 1794));
-  aspect-ratio: 1794 / 2120;
+  position: relative;
+  width: min(100vw, calc(100dvh * 2368 / 2120));
+  height: min(100dvh, calc(100vw * 2120 / 2368));
+  aspect-ratio: 2368 / 2120;
   flex-shrink: 0;
 }
 
@@ -50,4 +59,87 @@ body {
 
 .scene__svg.is-dragging .tube-hit {
   cursor: grabbing;
+}
+
+.scene__svg.is-narrow .tube-wide {
+  display: none;
+}
+
+.scene__svg:not(.is-narrow) .tube-narrow {
+  display: none;
+}
+
+.scene__svg.is-small-disk .disk-wide,
+.scene__svg.is-small-disk .disk-giant,
+.scene__svg.is-giant-disk .disk-wide,
+.scene__svg.is-giant-disk .disk-narrow,
+.scene__svg:not(.is-small-disk):not(.is-giant-disk) .disk-narrow,
+.scene__svg:not(.is-small-disk):not(.is-giant-disk) .disk-giant {
+  display: none;
+}
+
+.ball-btn {
+  cursor: pointer;
+}
+
+.ball-btn.is-disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.scene-actions {
+  position: absolute;
+  top: 2.5%;
+  right: 2.5%;
+  z-index: 3;
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: 70%;
+}
+
+.tube-switch {
+  display: flex;
+  gap: 0.35em;
+}
+
+.tube-switch__btn,
+.reset-btn {
+  padding: 0.45em 0.95em;
+  border: 2px solid #0d0c0d;
+  border-radius: 0.55em;
+  background: #ffffff;
+  color: #0d0c0d;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(14px, 2.3vmin, 28px);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tube-switch__btn:hover,
+.reset-btn:hover {
+  background: #f3f3f3;
+}
+
+.tube-switch__btn.is-active {
+  background: #0d0c0d;
+  color: #ffffff;
+}
+
+.tube-switch__btn.is-active:hover {
+  background: #0d0c0d;
+}
+
+.tube-switch__btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.js-depth-readout {
+  font-family: "Fenomen Sans", Arial, Helvetica, sans-serif;
+  font-size: 44px;
+  font-weight: 400;
+  fill: #ef3a50;
 }
