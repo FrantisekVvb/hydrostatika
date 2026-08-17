@@ -1,0 +1,13 @@
+{
+  "name": "hydrostatika",
+  "version": "1.0.0",
+  "description": "Hydrostatika — interaktivní simulace hydrostatiky",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "npm start"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

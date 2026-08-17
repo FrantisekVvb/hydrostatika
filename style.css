@@ -1,0 +1,53 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: #ffffff;
+  color-scheme: light;
+}
+
+.scene {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  padding: 0;
+}
+
+.scene__wrap {
+  width: min(100vw, calc(100dvh * 1794 / 2120));
+  height: min(100dvh, calc(100vw * 2120 / 1794));
+  aspect-ratio: 1794 / 2120;
+  flex-shrink: 0;
+}
+
+.scene__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  touch-action: none;
+  user-select: none;
+}
+
+.tube-hit {
+  cursor: grab;
+}
+
+.scene__svg.is-dragging .tube-hit {
+  cursor: grabbing;
+}
