@@ -2,6 +2,8 @@
 
 Interaktivní simulace hydrostatiky.
 
+**Online verze:** https://frantisekvvb.github.io/hydrostatika/
+
 ## Spuštění lokálně
 
 Potřebuješ [Node.js](https://nodejs.org/) 18 nebo novější.
