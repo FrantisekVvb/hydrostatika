@@ -2,11 +2,9 @@
 
 Interaktivní simulace hydrostatiky.
 
-**Online verze:** https://frantisekvvb.github.io/hydrostatika/
+**Spustit online:** https://cdn.jsdelivr.net/gh/FrantisekVvb/hydrostatika@gh-pages/index.html
 
-**Záložní odkaz (funguje hned):** https://cdn.jsdelivr.net/gh/FrantisekVvb/hydrostatika@main/index.html
-
-Pokud GitHub Pages ještě neběží, v repozitáři jednou zapni **Settings → Pages → Deploy from a branch → `gh-pages` → `/ (root)`**. Po pushi na `main` se větev `gh-pages` vytvoří automaticky.
+**GitHub Pages:** https://frantisekvvb.github.io/hydrostatika/ (po zapnutí v **Settings → Pages → Deploy from a branch → `gh-pages` → `/ (root)`**)
 
 ## Spuštění lokálně
 
